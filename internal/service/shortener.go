@@ -11,7 +11,7 @@ func NewShortenService(s storage.Store) *ShortenService {
 	return &ShortenService{store: s}
 }
 
-func (s *ShortenService) ShortenURL(originalURL string) (string, bool) {
+func (s *ShortenService) ShortenURL(originalURL string) string {
 	return s.store.Save(originalURL)
 }
 

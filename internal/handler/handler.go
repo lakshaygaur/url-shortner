@@ -37,7 +37,7 @@ func (h *Handler) shortenURLHandler(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
 		return
 	}
-	code, _ := h.shortener.ShortenURL(req.URL)
+	code := h.shortener.ShortenURL(req.URL)
 	c.JSON(http.StatusOK, shortenResponse{ShortURL: "/r/" + code})
 }
 

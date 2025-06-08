@@ -24,7 +24,7 @@ func NewMemoryStore() *MemoryStore {
 	}
 }
 
-func (s *MemoryStore) Save(url string) (string, bool) {
+func (s *MemoryStore) Save(url string) string {
 	hash := sha1.Sum([]byte(url))
 	code := base64.URLEncoding.EncodeToString(hash[:])[:6]
 
@@ -35,7 +35,7 @@ func (s *MemoryStore) Save(url string) (string, bool) {
 	domain := extractDomain(url)
 	s.domainUse[domain]++
 
-	return code, false
+	return code
 }
 
 func (s *MemoryStore) Resolve(code string) (string, bool) {
@@ -66,6 +66,14 @@ func (s *MemoryStore) GetTopDomains(limit int) map[string]int {
 		top[list[i].Key] = list[i].Value
 	}
 	return top
+}
+
+func (s *MemoryStore) ClearStorage() {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.urlToCode = make(map[string]string)
+	s.codeToURL = make(map[string]string)
+	s.domainUse = make(map[string]int)
 }
 
 func extractDomain(url string) string {

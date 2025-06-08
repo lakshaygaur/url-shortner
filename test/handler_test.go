@@ -1,7 +1,6 @@
 package test
 
 import (
-	"fmt"
 	"testing"
 
 	"url_shortener/internal/service"
@@ -47,7 +46,6 @@ func TestShortenService(t *testing.T) {
 		svc.ShortenURL(u)
 	}
 	top := svc.GetTopDomains()
-	fmt.Println("domains", top)
 	assert.Equal(t, 3, len(top))
 	assert.Equal(t, 4, top["udemy.com"])
 	assert.Equal(t, 3, top["youtube.com"])

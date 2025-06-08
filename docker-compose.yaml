@@ -1,0 +1,9 @@
+
+services:
+  url_shortener:
+    image: lakshaygaur/url_shortener:1.0.0
+    container_name: url_shortener
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config.example.yaml:/app/config.yaml
